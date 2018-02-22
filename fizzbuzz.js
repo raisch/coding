@@ -37,3 +37,8 @@ function naiveFizzBuzz() {
 
   console.log(result)
 }
+
+function lodashFizzBuzz() {
+  const _ = require('lodash')
+  
+}
