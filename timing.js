@@ -12,7 +12,7 @@ const MUTATORS = [
   ['Buzz', i => i % 5 == 0 ]
 ]
 
-const MAX_ITERATIONS = 1e7
+const MAX_ITERATIONS = 10e6
 
 console.log(`===============================\nafter ${MAX_ITERATIONS} iterations...\n===============================`)
 
