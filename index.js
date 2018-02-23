@@ -1,6 +1,8 @@
 'use strict'
 /* eslint-env node, es6 */
 
+const _ = require('lodash')
+
 /**
  * Example using all implementations of the FizzBuzz problem in lib/fizzbuzz.js
  *
@@ -21,7 +23,7 @@ const MAX = 100
  *
  * @type {Array.<Number>}
  */
-const NUMS = FB.range(MAX, 1)
+const RANGE = FB.range(MAX, 1)
 
 /**
  * Mutators to produce result.
@@ -34,16 +36,33 @@ const MUTATORS = [
 ]
 
 /**
- * Result of all FizzBuzz implementations.
+ * Default callback to print result to console.
  *
- * @type {Object}
+ * @param {Error|null} err - error report
+ * @param {String} impl - name of the implementation
+ * @param {Array.<Number,String>} results - results of run
  */
-const RESULT = {
-  naive: FB.naive().join(' '),
-  lodash: FB.usingLodash().join(' '),
-  parameterized: FB.parameterized(NUMS, MUTATORS).join(' '),
-  funcional: FB.functional(NUMS, MUTATORS).join(' '),
-  pure: FB.pure(NUMS, MUTATORS).join(' ')
+const CB = (err, impl, results) => {
+  if(err) {
+    throw new Error(err)
+  }
+  console.log(`${_.padEnd(impl, 12)}: ${results.join(' ')}\n`)
 }
 
-console.log(RESULT)
+// run impls that take a MAX value
+_.forEach([ 'naive', 'usingLodash'], name => {
+  const op = FB[name]
+  if(!_.isFunction(op)) {
+    throw new TypeError(`failed to find ${key}`)
+  }
+  op(MAX, CB)
+})
+
+// run impls that require a RANGE and some MUTATORS
+_.forEach(['parameterized', 'functional', 'events', 'promised'], name => {
+  const op = _.get(FB, name)
+  if(!_.isFunction(op)) {
+    throw new TypeError(`failed to find ${key}`)
+  }
+  op(RANGE, MUTATORS, CB)
+})

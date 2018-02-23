@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
+    "timed": "node ./timing.js",
     "doc": "jsdoc ./index.js ./lib/*",
     "test": "mocha"
   },
