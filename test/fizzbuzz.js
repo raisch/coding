@@ -36,7 +36,7 @@ describe('fizzbuzz', function () {
     describe('naive', function () {
       it('should provide expected result', function (next) {
         FB.naive(MAX, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+          expect(results).to.deep.equal(expected)
           next()
         })
       })
@@ -45,7 +45,7 @@ describe('fizzbuzz', function () {
     describe('usingLodash', function (next) {
       it('should provide expected result', function (next) {
         FB.usingLodash(MAX, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+          expect(results).to.deep.equal(expected)
           next()
         })
       })
@@ -56,7 +56,7 @@ describe('fizzbuzz', function () {
     describe('parameterized', function (next) {
       it('should provide expected result', function (next) {
         FB.parameterized(RANGE, MUTATORS, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+          expect(results).to.deep.equal(expected)
           next()
         })
       })
@@ -64,8 +64,8 @@ describe('fizzbuzz', function () {
 
     describe('functional', function () {
       it('should provide expected result', function (next) {
-        FB.events(RANGE, MUTATORS, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+        FB.functional(RANGE, MUTATORS, (err, impl, results) => {
+          expect(results).to.deep.equal(expected)
           next()
         })
       })
@@ -74,7 +74,7 @@ describe('fizzbuzz', function () {
     describe('events', function () {
       it('should provide expected result', function (next) {
         FB.events(RANGE, MUTATORS, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+          expect(results).to.deep.equal(expected)
           next()
         })
       })
@@ -83,7 +83,7 @@ describe('fizzbuzz', function () {
     describe('promised', function () {
       it('should provide expected result', function (next) {
         FB.promised(RANGE, MUTATORS, (err, impl, results) => {
-          expect(JSON.stringify(results)).to.equal(JSON.stringify(expected))
+          expect(results).to.deep.equal(expected)
           next()
         })
       })

@@ -12,30 +12,67 @@ const MUTATORS = [
   ['Buzz', i => i % 5 == 0 ]
 ]
 
-const MAX_ITERATIONS = 10e6
+const MAX_ITERATIONS = 10e3
+
+let naiveCount = 0,
+    lodashCount = 0,
+    paramterizedCount = 0,
+    functionalCount = 0,
+    eventsCount = 0,
+    promisedCount = 0
 
 console.log(`===============================\nafter ${MAX_ITERATIONS} iterations...\n===============================`)
 
 console.time('naive')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.naive())
-console.timeEnd('naive')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.naive(MAX, () => {
+    if (++naiveCount === MAX_ITERATIONS) {
+      console.timeEnd('naive')
+    }
+  })
+})
 
 console.time('usingLodash')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.usingLodash())
-console.timeEnd('usingLodash')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.usingLodash(MAX, () => {
+    if (++lodashCount === MAX_ITERATIONS) {
+      console.timeEnd('usingLodash')
+    }
+  })
+})
 
 console.time('parameterized')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.parameterized(RANGE, MUTATORS))
-console.timeEnd('parameterized')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.parameterized(RANGE, MUTATORS, () => {
+    if (++paramterizedCount === MAX_ITERATIONS) {
+      console.timeEnd('parameterized')
+    }
+  })
+})
 
 console.time('functional')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.functional(RANGE, MUTATORS))
-console.timeEnd('functional')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.functional(RANGE, MUTATORS, () => {
+    if (++functionalCount === MAX_ITERATIONS) {
+      console.timeEnd('functional')
+    }
+  })
+})
 
 console.time('events')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.events(RANGE, MUTATORS))
-console.timeEnd('events')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.events(RANGE, MUTATORS, () => {
+    if (++eventsCount === MAX_ITERATIONS) {
+      console.timeEnd('events')
+    }
+  })
+})
 
 console.time('promised')
-FB.range(1, MAX_ITERATIONS).forEach(() => FB.promised(RANGE, MUTATORS))
-console.timeEnd('promised')
+FB.range(MAX_ITERATIONS, 1).forEach(() => {
+  FB.promised(RANGE, MUTATORS, () => {
+    if (++promisedCount === MAX_ITERATIONS) {
+      console.timeEnd('promised')
+    }
+  })
+})
